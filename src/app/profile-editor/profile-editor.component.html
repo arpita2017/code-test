@@ -1,0 +1,96 @@
+
+ <h2>User form</h2>
+
+<form [formGroup]="profileForm"  class="form-horizontal">
+
+  <div class="form-group row" >
+    <label class="control-label col-sm-3" for="title">Role:</label>
+    <div class="col-sm-9">
+      <select formControlName="role"  required class="form-control col-sm8">
+        <option value="Admin">Admin</option>
+        <option value="Support">Support</option>
+        <option value="Other">Other</option>
+      </select>
+        <span *ngIf="profileForm.controls.role.invalid && 
+          (profileForm.controls.role.touched || profileForm.controls.role.dirty)" class="alert alert-danger">
+              Role is required
+          </span>
+    </div>
+  </div>
+
+  
+   <div class="form-group row" >
+      <label class="control-label col-sm-3" for="title"> First Name::</label>
+      <div class="col-sm-9">
+          <input type="text" formControlName="firstName"  required class="form-control" required>
+          <span *ngIf="profileForm.controls.firstName.invalid && 
+          (profileForm.controls.firstName.touched || profileForm.controls.firstName.dirty)" class="alert alert-danger">
+              firstName is required
+          </span>
+      </div>
+    </div>
+
+  
+  <div class="form-group row">
+      <label class="control-label col-sm-3" for="lastName"> Last Name:</label>
+      <div class="col-sm-9">
+          <input type="text" formControlName="lastName" class="form-control">
+          <span *ngIf="profileForm.controls.lastName.invalid && 
+          (profileForm.controls.lastName.touched || profileForm.controls.lastName.dirty)" class="alert alert-danger">
+              LastName is required
+          </span>
+      </div>
+  </div>
+
+  <div class="form-group row">
+      <label class="control-label col-sm-3" for="phone"> phone:</label>
+      <div class="col-sm-9">
+          <input type="text" formControlName="phone" class="form-control">
+          <span *ngIf="profileForm.controls.phone.invalid && 
+          (profileForm.controls.phone.touched || profileForm.controls.phone.dirty)" class="alert alert-danger">
+              phone is required
+          </span>
+       </div>
+  </div>
+
+
+  <div class="form-group row">
+      <label class="control-label col-sm-3" for="email"> email:</label>
+      <div class="col-sm-9">
+          <input type="text" formControlName="email" class="form-control">
+          <div *ngIf="profileForm.controls.email.invalid && (profileForm.controls.email.dirty || profileForm.controls.email.touched)"
+            class="alert alert-danger">
+
+              <div *ngIf="profileForm.controls.email.errors.required">
+                Name is required.
+              </div>
+              <div *ngIf="profileForm.controls.email.errors.pattern">
+                email is not valid
+              </div>
+          </div>     
+    </div>
+  </div>
+
+
+  <div class="form-group row">        
+      <div >
+        <button class="btn btn-primary" (click)="addUser()" class="btn btn-default" [disabled]="!profileForm.valid  || isAddDisabled">ADD</button>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-primary" (click)="onSubmit()"  class="btn btn-default">Submit</button>
+      </div>
+  </div>
+ 
+  </form>
+
+  <p><b>Current User</b>{{ profileForm.value | json }}</p>
+
+  <p>USERLIST:</p>
+  <div *ngFor="let record of userList">
+   role= {{record.Roles}}
+   firstname ={{record.firstName}}
+   lastname={{record.lastName}}
+   phone={{record.phone}}
+   email={{record.email}}
+ </div>
+
